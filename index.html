@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>أنمي Solo Leveling</title>
   <link rel="icon" type="image/png" href="https://i.pinimg.com/originals/74/2b/9d/742b9dfd8f52f9a22d1b77411bce4210.png">
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
@@ -111,30 +109,48 @@
       animation: glow 2s infinite alternate;
     }
 
-    #authContainer {
+    #chatContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
       background-color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      text-align: center;
-      box-shadow: 0 0 15px #00ffff33;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffff;
     }
 
-    #authContainer input {
+    #chatbox {
+      width: 100%;
+      height: 200px;
+      background-color: #333;
+      border: none;
+      color: #fff;
       padding: 10px;
-      margin: 10px;
+      overflow-y: auto;
+      border-radius: 8px;
+    }
+
+    #userInput {
+      width: 80%;
+      padding: 10px;
       border-radius: 8px;
       border: none;
-      width: 250px;
     }
 
-    .logo {
-      display: block;
-      margin: 0 auto 20px;
-      width: 120px;
-      height: auto;
-      border-radius: 50%;
-      box-shadow: 0 0 15px #00ffff88;
+    #sendBtn {
+      width: 18%;
+      padding: 10px;
+      background-color: #00ffff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    #sendBtn:hover {
+      background-color: #00cccc;
     }
 
     @keyframes glow {
@@ -153,18 +169,10 @@
   <img class="logo" src="https://i.pinimg.com/originals/74/2b/9d/742b9dfd8f52f9a22d1b77411bce4210.png" alt="لوغو أريس">
 
   <div class="welcome">
-    If you want to become a hunter... you have to earn it.
+    إذا كنت تريد أن تصبح صيادًا... عليك أن تكسبها.
   </div>
 
-  <div id="authContainer">
-    <h2>🔒 الرجاء تسجيل الدخول للمتابعة</h2>
-    <p>أدخل بريدك الإلكتروني للوصول الكامل والمراسلة:</p>
-    <input type="text" id="authInput" placeholder="البريد الإلكتروني">
-    <input type="password" id="authPassword" placeholder="كلمة المرور">
-    <button onclick="authorizeUser()">تسجيل الدخول</button>
-  </div>
-
-  <div id="mainContent" style="display:none">
+  <div id="mainContent">
     <h1>أنمي Solo Leveling</h1>
 
     <p>
@@ -183,72 +191,40 @@
         <div class="stat">⚡ السرعة: خارقة</div>
       </div>
     </div>
+  </div>
 
-    <div class="character">
-      <h3>🛡️ بيرو</h3>
-      <div class="stats">
-        <div class="stat">⚔️ فن القتال: هجمات عنيفة ومخالب</div>
-        <div class="stat">🪄 السحر: سحر الظل والصراخ العقلي</div>
-        <div class="stat">⚡ السرعة: عالية جدًا</div>
-      </div>
-    </div>
-
-    <div class="character">
-      <h3>🔥 توماس أندريه</h3>
-      <div class="stats">
-        <div class="stat">⚔️ فن القتال: قتال جسدي ومدرع</div>
-        <div class="stat">🪄 السحر: تعزيز القوة الجسدية</div>
-        <div class="stat">⚡ السرعة: متوسطة</div>
-      </div>
-    </div>
-
-    <div class="character">
-      <h3>👑 غو غون هي</h3>
-      <div class="stats">
-        <div class="stat">⚔️ فن القتال: قتال دفاعي</div>
-        <div class="stat">🪄 السحر: دعم وحماية</div>
-        <div class="stat">⚡ السرعة: بطيئة</div>
-      </div>
-    </div>
-
-    <div class="character">
-      <h3>👾 آريس</h3>
-      <div class="stats">
-        <div class="stat">⚔️ فن القتال: سيف أسود مزدوج</div>
-        <div class="stat">🪄 السحر: تقنيات الظلال المتقدمة</div>
-        <div class="stat">⚡ السرعة: سريعة وخفية</div>
-      </div>
-    </div>
+  <!-- Chatbot -->
+  <div id="chatContainer">
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="اسألني عن الأنمي..." />
+    <button id="sendBtn" onclick="sendMessage()">إرسال</button>
   </div>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      appId: "YOUR_APP_ID"
+    const responses = {
+      "من هو سون جين وو؟": "سون جين وو هو الشخصية الرئيسية في أنمي Solo Leveling. كان أضعف صياد في العالم ثم أصبح أقوى صياد بفضل قدراته الخاصة.",
+      "ما هي مهارات سون جين وو؟": "سون جين وو يمتلك مهارات خاصة في فنون القتال باستخدام الظلال والسيوف، بالإضافة إلى سحر الظل والتحكم بالظلال.",
+      "ما هو Solo Leveling؟": "Solo Leveling هو أنمي مقتبس من مانهوا كورية بنفس الاسم، يتبع قصة سون جين وو، صياد يتطور بشكل غير عادي ليصبح أقوى صياد.",
+      "من هو آريس؟": "آريس هو أحد الشخصيات القوية في الأنمي، وهو يستخدم سيفًا أسود مزدوجًا وتقنيات الظلال المتقدمة."
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    function authorizeUser() {
-      const email = document.getElementById('authInput').value.trim();
-      const password = document.getElementById('authPassword').value.trim();
-
-      if (!email || !password) {
-        alert('يرجى إدخال البريد الإلكتروني وكلمة المرور');
-        return;
+    function sendMessage() {
+      const userInput = document.getElementById('userInput').value.trim();
+      if (userInput) {
+        // Display user message
+        const chatbox = document.getElementById('chatbox');
+        chatbox.innerHTML += `<div><strong>أنت:</strong> ${userInput}</div>`;
+        
+        // Generate bot response
+        const botResponse = responses[userInput] || "عذرًا، لم أفهم سؤالك. حاول مرة أخرى!";
+        chatbox.innerHTML += `<div><strong>البوت:</strong> ${botResponse}</div>`;
+        
+        // Clear input field
+        document.getElementById('userInput').value = '';
+        
+        // Scroll to the bottom of the chatbox
+        chatbox.scrollTop = chatbox.scrollHeight;
       }
-
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          document.getElementById('authContainer').style.display = 'none';
-          document.getElementById('mainContent').style.display = 'block';
-        })
-        .catch((error) => {
-          alert("فشل تسجيل الدخول: " + error.message);
-        });
     }
   </script>
 
