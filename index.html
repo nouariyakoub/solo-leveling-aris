@@ -1,280 +1,202 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>أفضل الشخصيات في Solo Leveling</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Playfair Display', serif;
-      background-color: #111;
-      color: #fff;
-      padding: 30px;
-      margin: 0;
-      overflow-x: hidden;
-      background: linear-gradient(45deg, #111, #00ffff);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling - أرِيس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #111;
+            color: #fff;
+            padding: 30px;
+            direction: rtl;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+        }
+        
+        h1, h2 {
+            color: #00ffff;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
 
-    h1, h2 {
-      text-align: center;
-      font-size: 50px;
-      color: #00ffff;
-      animation: glowText 2s ease-in-out infinite alternate;
-    }
+        .character {
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            margin-bottom: 30px;
+        }
 
-    @keyframes glowText {
-      0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
-      100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #00ffff, 0 0 50px #00ffff; }
-    }
+        .character img {
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #00ffff;
+            transition: transform 0.3s ease;
+        }
 
-    .character, .hunter {
-      background-color: #222;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 12px;
-      box-shadow: 0 0 30px #00ffff;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.5s ease;
-    }
+        .character:hover img {
+            transform: scale(1.05);
+            cursor: pointer;
+            box-shadow: 0 0 30px #00ffff;
+        }
 
-    .character:hover, .hunter:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 50px #00ffff;
-      animation: pulse 1s infinite alternate;
-    }
+        h3 {
+            color: #00ffff;
+            font-size: 1.8em;
+            text-align: center;
+        }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.05); }
-    }
+        .content p {
+            color: #ccc;
+            text-align: center;
+            font-size: 1.2em;
+        }
 
-    img {
-      display: block;
-      margin: 20px auto;
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffff;
-      animation: fadeIn 2s ease-in-out;
-      transition: transform 0.3s ease;
-    }
+        button {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
 
-    img:hover {
-      transform: scale(1.1);
-      cursor: pointer;
-    }
+        button:hover {
+            background-color: #00cccc;
+            transform: scale(1.05);
+        }
 
-    .content {
-      display: flex;
-      align-items: center;
-      justify-content: start;
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-    .content h3 {
-      color: #00ffff;
-      font-size: 24px;
-      margin-bottom: 15px;
-      animation: glow 2s infinite alternate;
-    }
+        .welcome-message {
+            text-align: center;
+            font-size: 1.5em;
+            color: #00ffff;
+            margin-bottom: 20px;
+        }
 
-    @keyframes glow {
-      0% { color: #ff00ff; }
-      100% { color: #00ffff; }
-    }
+        .season-schedule {
+            margin: 40px auto;
+            text-align: center;
+            border: 2px solid #00ffff;
+            padding: 20px;
+            width: 80%;
+            border-radius: 10px;
+        }
 
-    .button {
-      background-color: #00ffff;
-      padding: 10px 20px;
-      font-size: 18px;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+        .season-schedule table {
+            width: 100%;
+            color: #00ffff;
+            font-size: 1.2em;
+            text-align: center;
+        }
 
-    .button:hover {
-      background-color: #00cccc;
-      transform: scale(1.05);
-    }
+        .season-schedule th, .season-schedule td {
+            padding: 10px;
+            border: 1px solid #00ffff;
+        }
 
-    .chat-container {
-      margin-top: 50px;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      background-color: #222;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #00ffff;
-    }
-
-    .chat-container input, .chat-container textarea, .chat-container button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    .chat-container button {
-      background-color: #00ffff;
-      color: black;
-      cursor: pointer;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-
-    .chat-container button:hover {
-      background-color: #00cccc;
-    }
-
-    #chatArea {
-      max-height: 300px;
-      overflow-y: auto;
-      margin-top: 10px;
-      padding: 10px;
-      background-color: #333;
-      border-radius: 8px;
-    }
-
-    .character-info {
-      margin-top: 15px;
-      font-size: 18px;
-      color: #fff;
-      background-color: #444;
-      padding: 10px;
-      border-radius: 8px;
-    }
-
-    .power-type {
-      font-weight: bold;
-      color: #00ffff;
-    }
-
-    .character-description, .skills, .love-hate {
-      font-size: 16px;
-      color: #ccc;
-      margin-top: 10px;
-    }
-
-    .love-hate span {
-      font-weight: bold;
-      color: #00ffff;
-    }
-
-    .character-weaknesses {
-      font-size: 16px;
-      color: #ff6666;
-      margin-top: 10px;
-    }
-
-    .intro-text {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 50px;
-      color: #ffcc00;
-      font-weight: bold;
-    }
-
-    .server-links {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .server-links a {
-      color: #00ffff;
-      font-size: 20px;
-      margin: 10px;
-      text-decoration: none;
-      padding: 8px 15px;
-      border: 2px solid #00ffff;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-    }
-
-    .server-links a:hover {
-      background-color: #00ffff;
-      color: black;
-    }
-
-    .video-container {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .video-container iframe {
-      width: 100%;
-      max-width: 800px;
-      height: 450px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffff;
-    }
-  </style>
+        iframe {
+            display: block;
+            margin: 30px auto;
+            width: 100%;
+            height: 315px;
+        }
+    </style>
 </head>
+
 <body>
 
-  <div class="intro-text">
-    If you want to become a hunter, you're on the right path!
-  </div>
-
-  <h1>Solo Leveling - Aris</h1>
-
-  <div class="character">
-    <img src="https://i.pinimg.com/originals/c0/5c/5e/c05c5e1e67b7d1aef3edb80cb41bdb78.jpg" alt="يو جين هو">
-    <div class="content">
-      <h3>يو جين هو (Yoo Jin-Ho)</h3>
-      <div class="character-description">
-        <p>يو جين هو هو أحد أقرب أصدقاء جين وو وأكثرهم وفاءً. يحترمه كثيرًا ويعتبره قدوة، وهو مستعد للتضحية من أجله.</p>
-      </div>
-      <div class="skills">
-        <p><span class="power-type">مهارات قتالية:</span> قوة التنقل بين العوالم، ومهارة المساعدة في المهام القتالية.</p>
-      </div>
-      <div class="love-hate">
-        <p><span>من يحبونه:</span> جين وو، جميع أصدقائه المقربين.</p>
-        <p><span>من يكرهون:</span> بعض الشخصيات الحاسدة مثل هوانغ سونغ وو.</p>
-      </div>
-      <div class="character-weaknesses">
-        <p><strong>عيوب:</strong> سريع الغضب في بعض الأحيان، وعدم قدرته على السيطرة على عواطفه عند مواجهة القسوة.</p>
-      </div>
+    <div class="welcome-message">
+        إذا كنت تريد أن تصبح صيادًا، فأنت في الطريق الصحيح! 💥
     </div>
-  </div>
 
-  <div class="server-links">
-    <h2>شاهد الأنمي على هذه المنصات:</h2>
-    <a href="https://www.crunchyroll.com/solo-leveling" target="_blank">Crunchyroll</a>
-    <a href="https://www.netflix.com/title/81313525" target="_blank">Netflix</a>
-    <a href="https://www.funimation.com/shows/solo-leveling/" target="_blank">Funimation</a>
-  </div>
+    <h1>Solo Leveling - أرِيس</h1>
 
-  <div class="video-container">
-    <h2 style="color: #00ffff;">شاهد الفيديو على YouTube:</h2>
-    <iframe src="https://www.youtube.com/embed/IrHTT2IEKpE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
+    <!-- صورة سون جين وو -->
+    <img src="https://raw.githubusercontent.com/nouariyakoub/solo-leveling-aris/main/images/son_jin_woo.jpg" alt="سون جين وو" style="display:block; margin:auto; width:300px; height:auto; border-radius: 15px;">
 
-  <div class="chat-container">
-    <h2 style="text-align:center; color:#00ffff;">💬 تحدث مع الزوار الآخرين!</h2>
-    <input id="username" type="text" placeholder="اسمك">
-    <textarea id="message" placeholder="اكتب رأيك هنا..."></textarea>
-    <button onclick="sendMessage()">إرسال</button>
-    <hr>
-    <div id="chatArea"></div>
-  </div>
+    <h2>مقدمة عن أنمي Solo Leveling</h2>
+    <p>تدور قصة "Solo Leveling" حول سون جين وو، وهو أضعف صياد في العالم. لكنه يجد نفسه في وضع غير عادي بعد أن يكتسب قدرات جديدة تمكنه من التطور ليصبح أحد أقوى الصيادين في العالم. القصة تتمحور حول رحلة سون جين وو لتطوير نفسه ومحاربة الوحوش والأعداء الأقوياء في عوالم مختلفة.</p>
 
-  <script>
-    function sendMessage() {
-      const name = document.getElementById("username").value.trim();
-      const message = document.getElementById("message").value.trim();
-      if (!name || !message) return alert("يرجى ملء الاسم والرسالة");
+    <h2>معلومات عن الموسم الثالث</h2>
+    <p>تم الإعلان رسميًا عن الموسم الثالث من "Solo Leveling" في مارس 2025. من المتوقع أن يبدأ عرضه في خريف 2025، وهو الموسم الذي ينتظره عشاق الأنمي حول العالم بلهفة كبيرة. يحتوي الموسم الثالث على العديد من المغامرات والتطورات الجديدة.</p>
 
-      const chatArea = document.getElementById("chatArea");
-      const msg = document.createElement("div");
-      msg.style.margin = "10px 0";
-      msg.innerHTML = `<strong style="color:#00ffff;">${name}</strong>: <span style="color:#ccc;">${message}</span>`;
-      chatArea.appendChild(msg);
+    <h2>بعض الشخصيات الرئيسية</h2>
 
-      document.getElementById("message").value = "";
-    }
-  </script>
+    <!-- شخصية سون جين وو -->
+    <div class="character">
+        <img src="https://raw.githubusercontent.com/nouariyakoub/solo-leveling-aris/main/images/son_jin_woo.jpg" alt="سون جين وو">
+        <h3>سون جين وو</h3>
+        <p>سون جين وو هو البطل الرئيسي في الأنمي. في البداية كان يعتبر أضعف صياد، ولكنه أصبح الآن من أقوى الشخصيات بفضل قواه الجديدة.</p>
+    </div>
+
+    <div class="character">
+        <img src="https://raw.githubusercontent.com/nouariyakoub/solo-leveling-aris/main/images/cha_hyein.jpg" alt="تشا هاي إن">
+        <h3>تشا هاي إن</h3>
+        <p>تشا هاي إن هي واحدة من أقوى الشخصيات المساعدة لسون جين وو. هي معروفة بشجاعتها وقوتها الخارقة.</p>
+    </div>
+
+    <!-- زر تفاعلي برسالة جميلة عند الضغط عليه -->
+    <button onclick="showMessage()">اضغط هنا للحصول على رسالة جميلة!</button>
+
+    <script>
+        function showMessage() {
+            alert("كل شيء ممكن إذا كنت تؤمن بنفسك! استمر في السعي نحو أحلامك!");
+        }
+    </script>
+
+    <!-- جدول لمواعيد المواسم -->
+    <div class="season-schedule">
+        <h3>جدول مواعيد مواسم Solo Leveling</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>الموسم</th>
+                    <th>تاريخ العرض</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>الموسم الأول</td>
+                    <td>2021</td>
+                </tr>
+                <tr>
+                    <td>الموسم الثاني</td>
+                    <td>2023</td>
+                </tr>
+                <tr>
+                    <td>الموسم الثالث</td>
+                    <td>خريف 2025</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- مؤثرات صوتية أو موسيقى -->
+    <h2>استمتع بموسيقى Solo Leveling</h2>
+    <audio controls>
+        <source src="https://www.example.com/solo-leveling-theme.mp3" type="audio/mp3">
+        متصفحك لا يدعم مشغل الصوت.
+    </audio>
+
+    <!-- فيديو ترويجي من يوتيوب -->
+    <iframe src="https://www.youtube.com/watch?v=IrHTT2IEKpE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 </body>
 </html>
